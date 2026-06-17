@@ -31,7 +31,7 @@ const urlSchema = z
 
 const server = new McpServer({
   name: "aso-score-scanner",
-  version: "0.1.0", // keep in sync with package.json, glama.json, and well-known/mcp/server-card.json
+  version: "0.1.1", // keep in sync with package.json, glama.json, and well-known/mcp/server-card.json
 });
 
 function json(payload: unknown) {

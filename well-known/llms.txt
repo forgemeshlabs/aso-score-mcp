@@ -12,4 +12,4 @@
 - [Scoring rubric](https://agentsignaloptimization.com/docs/ASO-SCORE.md): ARI levels ASO-0 through ASO-5
 
 ## Source
-- [GitHub repository](https://github.com/forgemesh/aso-score-mcp): MIT licensed, contributions welcome
+- [GitHub repository](https://github.com/forgemeshlabs/aso-score-mcp): MIT licensed, contributions welcome

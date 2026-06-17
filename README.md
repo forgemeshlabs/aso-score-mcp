@@ -102,7 +102,7 @@ npm run smoke -- https://your-site.com
 This repository includes `glama.json` for Glama MCP registry ownership and install metadata.
 
 - **Package:** `@forgemeshlabs/aso-score-mcp`
-- **Current release:** `v0.1.0`
+- **Current release:** `v0.1.1`
 - **Transport:** local `stdio`
 - **Authentication:** none required for local `stdio` use. The scanner does not ask for API keys, tokens, cookies, or third-party credentials.
 - **HTTP deployment:** not enabled by this npm package. Any public HTTP deployment of this scanner must add authentication, per-client rate limits, request logging, and an egress policy before exposure.
@@ -124,11 +124,11 @@ List the ASO scanner checks.
 
 Release verification:
 
-- Git tag: `v0.1.0`
+- Git tag: `v0.1.1`
 - npm package: `@forgemeshlabs/aso-score-mcp`
-- MCP server version: `0.1.0`
+- MCP server version: `0.1.1`
 
-`v0.1.0` is the first ASO Score namespace release: it includes the agent-friendly UX check, clarifies Google Search's generative AI guidance, and keeps Glama metadata ready.
+`v0.1.1` is the ASO Score namespace documentation refresh: it keeps the first published package current, corrects bundled discovery links, includes the agent-friendly UX check, clarifies Google Search's generative AI guidance, and keeps Glama metadata ready.
 
 ### Glama release build
 
