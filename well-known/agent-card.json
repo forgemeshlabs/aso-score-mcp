@@ -1,0 +1,35 @@
+{
+  "protocolVersion": "0.3.0",
+  "name": "ASO Score MCP",
+  "description": "Scans websites for ASO score across discoverability, identity, trust, commerce, reputation, and memory signals. Returns an Agent Readiness Index (0-100) with per-check evidence and fix plans, per the ASO framework.",
+  "url": "https://scanner.agentsignaloptimization.com/a2a",
+  "preferredTransport": "JSONRPC",
+  "provider": {
+    "organization": "Agent Signal Optimization",
+    "url": "https://agentsignaloptimization.com"
+  },
+  "version": "1.0.0",
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false,
+    "stateTransitionHistory": false
+  },
+  "defaultInputModes": ["text/plain", "application/json"],
+  "defaultOutputModes": ["application/json"],
+  "skills": [
+    {
+      "id": "scan-site",
+      "name": "Agent-readiness scan",
+      "description": "Scan a website URL and return its ARI score, ASO maturity level, pillar breakdown, and all check results with evidence.",
+      "tags": ["aso", "agent-readiness", "audit", "scanner"],
+      "examples": ["Scan example.com for ASO score", "How agent-ready is acme.io?"]
+    },
+    {
+      "id": "fix-plan",
+      "name": "ASO fix plan",
+      "description": "Produce a prioritized remediation plan with ready-to-paste artifact templates (robots.txt AI rules, llms.txt, agent.json, A2A agent card, MCP server card, x402 manifest).",
+      "tags": ["aso", "remediation", "templates"],
+      "examples": ["Give me a fix plan to make example.com agent-ready"]
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+# Agent-Ready Scanner
+
+> Free open-source MCP server that scans any website for ASO score and scores it 0-100 on the Agent Readiness Index, using the ASO (Agent Signal Optimization) framework. SEO made sites visible to search engines; ASO makes services discoverable, trustable, invocable, and payable by AI agents.
+
+## Use it
+- [MCP server card](/.well-known/mcp/server-card.json): Connect via MCP to run scans
+- [A2A agent card](/.well-known/agent-card.json): Invoke via the Agent2Agent protocol
+- [Identity manifest](/agent.json): Who this service is
+
+## Framework
+- [ASO framework](https://agentsignaloptimization.com): The open Agent Signal Optimization framework
+- [Scoring rubric](https://agentsignaloptimization.com/docs/ASO-SCORE.md): ARI levels ASO-0 through ASO-5
+
+## Source
+- [GitHub repository](https://github.com/forgemesh/aso-score-mcp): MIT licensed, contributions welcome

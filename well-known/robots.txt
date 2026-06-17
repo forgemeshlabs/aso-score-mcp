@@ -1,0 +1,21 @@
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
+
+User-agent: *
+Allow: /
+
+Sitemap: https://scanner.agentsignaloptimization.com/sitemap.xml

@@ -1,0 +1,19 @@
+{
+  "name": "ASO Score MCP",
+  "framework": "ASO",
+  "capabilities": [
+    "discoverability.audit",
+    "identity.manifest.review",
+    "trust.signal.validation",
+    "commerce.readiness.scan",
+    "a2a.agent-card.validation",
+    "mcp.server-card.validation"
+  ],
+  "signals": {
+    "llms": "/llms.txt",
+    "agent": "/agent.json",
+    "a2a": "/.well-known/agent-card.json",
+    "mcp": "/.well-known/mcp/server-card.json",
+    "score": "https://agentsignaloptimization.com/docs/ASO-SCORE.md"
+  }
+}

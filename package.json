@@ -1,0 +1,59 @@
+{
+  "name": "@forgemeshlabs/aso-score-mcp",
+  "version": "0.1.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "ASO Score MCP — the free ASO Score scanner as an MCP server. Measures your ASO Score (Agent Signal Optimization) across discovery, identity, trust, commerce, reputation, memory, Google generative AI search, and browser-agent UX signals.",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/forgemeshlabs/aso-score-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/forgemeshlabs/aso-score-mcp/issues"
+  },
+  "homepage": "https://github.com/forgemeshlabs/aso-score-mcp#readme",
+  "bin": {
+    "aso-score-mcp": "dist/index.js"
+  },
+  "main": "dist/index.js",
+  "files": [
+    "dist",
+    "well-known",
+    "glama.json",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "smoke": "node dist/smoke.js",
+    "test": "tsc -p tsconfig.test.json && node --test dist-test/*.test.js",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "mcp",
+    "aso",
+    "agent-signal-optimization",
+    "agent-ready",
+    "a2a",
+    "llms.txt",
+    "x402",
+    "agent-readiness",
+    "agent-friendly-websites",
+    "generative-ai-search",
+    "google-ai-mode"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.6.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

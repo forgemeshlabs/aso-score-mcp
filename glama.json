@@ -1,0 +1,54 @@
+{
+  "$schema": "https://glama.ai/mcp/schemas/server.json",
+  "maintainers": ["clawdbotworker"],
+  "name": "@forgemeshlabs/aso-score-mcp",
+  "description": "Free Agent Signal Optimization scanner MCP server. Audits websites for agent discoverability, trust, interoperability, commerce, Google generative AI search, browser-agent UX, and machine-readable readiness signals.",
+  "version": "0.1.0",
+  "license": "MIT",
+  "repository": "https://github.com/forgemeshlabs/aso-score-mcp",
+  "homepage": "https://github.com/forgemeshlabs/aso-score-mcp#readme",
+  "author": {
+    "name": "ForgeMesh Labs",
+    "url": "https://github.com/forgemeshlabs"
+  },
+  "installation": {
+    "npm": {
+      "command": "npx",
+      "args": ["-y", "@forgemeshlabs/aso-score-mcp"]
+    }
+  },
+  "tools": [
+    {
+      "name": "scan_site",
+      "description": "Scan a website and return an ASO Score Report with ASO score, maturity level, pillar scores, evidence, and recommendations."
+    },
+    {
+      "name": "get_fix_plan",
+      "description": "Generate a prioritized remediation plan with ready-to-paste templates for missing agent-readiness signals."
+    },
+    {
+      "name": "check_signal",
+      "description": "Run one specific agent-readiness check, such as llms-txt, a2a-agent-card, mcp-server-card, or x402."
+    },
+    {
+      "name": "list_checks",
+      "description": "List every supported ASO scanner check with category, description, and spec link."
+    },
+    {
+      "name": "get_aso_framework",
+      "description": "Return the Agent Signal Optimization framework reference, scoring pillars, maturity levels, and certification thresholds."
+    }
+  ],
+  "keywords": [
+    "mcp",
+    "aso",
+    "agent-signal-optimization",
+    "agent-readiness",
+    "llms.txt",
+    "a2a",
+    "x402",
+    "security",
+    "seo",
+    "audit"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "ASO Score MCP",
+  "description": "Free open-source MCP server that scans websites for ASO score and scores them on the Agent Readiness Index (ARI) using the ASO framework.",
+  "url": "https://agentsignaloptimization.com",
+  "version": "1.0.0",
+  "capabilities": [
+    "scan_site",
+    "check_signal",
+    "list_checks",
+    "get_fix_plan",
+    "get_aso_framework"
+  ],
+  "signals": {
+    "llms": "/llms.txt",
+    "a2a": "/.well-known/agent-card.json",
+    "mcp": "/.well-known/mcp/server-card.json",
+    "rubric": "https://agentsignaloptimization.com/docs/ASO-SCORE.md"
+  }
+}
