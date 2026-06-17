@@ -1,7 +1,7 @@
 {
   "name": "aso-score-mcp",
   "description": "ASO agent-readiness scanner. Tools: scan_site, check_signal, list_checks, get_fix_plan, get_aso_framework.",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "endpoint": "https://scanner.agentsignaloptimization.com/mcp",
   "transport": ["stdio"],
   "capabilities": {

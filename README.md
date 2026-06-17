@@ -1,5 +1,8 @@
 # aso-score-mcp — the free ASO Score Scanner
 
+[![aso-score-mcp MCP server](https://glama.ai/mcp/servers/forgemeshlabs/aso-score-mcp/badges/score.svg)](https://glama.ai/mcp/servers/forgemeshlabs/aso-score-mcp)
+[![aso-score-mcp MCP server](https://glama.ai/mcp/servers/forgemeshlabs/aso-score-mcp/badges/card.svg)](https://glama.ai/mcp/servers/forgemeshlabs/aso-score-mcp)
+
 **What's your ASO score?**
 
 SEO made you visible to search engines. **ASO (Agent Signal Optimization)** makes you discoverable, trustable, and payable by the AI agents that are becoming the web's next visitors.
@@ -89,6 +92,8 @@ claude mcp add aso -- node /path/to/aso-score-mcp/dist/index.js
 | `list_checks` | Catalog of every check with spec links |
 | `get_aso_framework` | The ASO rubric: pillars, weights, levels, certification thresholds |
 
+Use `scan_site` for a full baseline, `check_signal` for a single named signal, `get_fix_plan` for copy-paste remediation, `list_checks` to discover valid signal IDs, and `get_aso_framework` to explain the scoring model without scanning a site.
+
 Try it: *"Scan example.com for ASO score"* · *"What's my ASO score?"* · *"Give me a fix plan to make my site agent-ready."*
 
 ### CLI smoke test (from a source checkout)
@@ -102,7 +107,7 @@ npm run smoke -- https://your-site.com
 This repository includes `glama.json` for Glama MCP registry ownership and install metadata.
 
 - **Package:** `@forgemeshlabs/aso-score-mcp`
-- **Current release:** `v0.1.1`
+- **Current release:** `v0.1.2`
 - **Transport:** local `stdio`
 - **Authentication:** none required for local `stdio` use. The scanner does not ask for API keys, tokens, cookies, or third-party credentials.
 - **HTTP deployment:** not enabled by this npm package. Any public HTTP deployment of this scanner must add authentication, per-client rate limits, request logging, and an egress policy before exposure.
@@ -124,11 +129,11 @@ List the ASO scanner checks.
 
 Release verification:
 
-- Git tag: `v0.1.1`
+- Git tag: `v0.1.2`
 - npm package: `@forgemeshlabs/aso-score-mcp`
-- MCP server version: `0.1.1`
+- MCP server version: `0.1.2`
 
-`v0.1.1` is the ASO Score namespace documentation refresh: it keeps the first published package current, corrects bundled discovery links, includes the agent-friendly UX check, clarifies Google Search's generative AI guidance, and keeps Glama metadata ready.
+`v0.1.2` is the ASO Score TDQS refresh: it improves Glama tool-selection guidance, adds Glama badges, and keeps registry metadata ready for a refreshed Glama release.
 
 ### Glama release build
 

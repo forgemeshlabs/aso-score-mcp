@@ -27,7 +27,7 @@ const urlSchema = z
     .describe("Website URL or domain to scan, e.g. https://example.com or example.com");
 const server = new McpServer({
     name: "aso-score-scanner",
-    version: "0.1.1", // keep in sync with package.json, glama.json, and well-known/mcp/server-card.json
+    version: "0.1.2", // keep in sync with package.json, glama.json, and well-known/mcp/server-card.json
 });
 function json(payload) {
     return { content: [{ type: "text", text: JSON.stringify(payload, null, 2) }] };
@@ -59,6 +59,7 @@ function projectReport(report, includeArtifacts) {
 server.registerTool("scan_site", {
     title: "ASO Scan — measure your ASO Score",
     description: "Scan a website for Agent Readiness using the ASO (Agent Signal Optimization) framework and return an ASO Score Report. " +
+        "Use this for a full site-level baseline, competitive audit, or before/after readiness measurement; use check_signal instead when you only need one named signal, and use get_fix_plan when you only need remediation steps. " +
         "Runs 34 checks across discoverability (robots.txt, sitemap, llms.txt, DNS-AID, Link headers), " +
         "content accessibility (markdown negotiation), bot access control (AI bot rules, Content Signals, Web Bot Auth), " +
         "invocation (API catalog, OAuth discovery, OAuth protected resource, auth.md, MCP Server Card, Google A2A Agent Card, Agent Skills, WebMCP), " +
@@ -70,11 +71,11 @@ server.registerTool("scan_site", {
         categories: z
             .array(z.enum(CATEGORIES))
             .optional()
-            .describe("Optional: limit the scan to specific check categories. Default: all."),
+            .describe("Optional category filter for focused scans. Omit for all 34 checks; pass one or more category enum values to narrow runtime and output."),
         include_artifacts: z
             .boolean()
             .optional()
-            .describe("Include the raw remote manifests the scanner parsed (agent.json, A2A card, etc.). These are UNTRUSTED attacker-controlled content; off by default."),
+            .describe("Optional raw artifact return. Default false. When true, includes remote manifests such as agent.json and A2A cards as untrusted attacker-controlled data for debugging only."),
     },
 }, async ({ url, categories, include_artifacts }) => {
     try {
@@ -88,7 +89,8 @@ server.registerTool("scan_site", {
 server.registerTool("check_signal", {
     title: "Run a single agent-readiness check",
     description: "Run one specific agent-readiness check against a site (e.g. 'a2a-agent-card', 'llms-txt', 'mcp-server-card', 'x402'). " +
-        "Use list_checks for valid check ids. Returns status, evidence, and a fix recommendation.",
+        "Use this for targeted validation after making a fix or when debugging one signal; use scan_site for the complete ASO Score and get_fix_plan for a prioritized remediation roadmap. " +
+        "Use list_checks first when you need valid check ids. Returns status, evidence, and a fix recommendation, and omits raw remote artifacts by default.",
     inputSchema: {
         url: urlSchema,
         check_id: z
@@ -97,7 +99,7 @@ server.registerTool("check_signal", {
             .min(1)
             .max(64)
             .regex(/^[a-z0-9-]+$/, "check_id must be a lowercase slug like 'a2a-agent-card'")
-            .describe("Check id from list_checks, e.g. 'a2a-agent-card'"),
+            .describe("Lowercase check slug from list_checks, e.g. 'a2a-agent-card', 'llms-txt', 'mcp-server-card', or 'x402'."),
     },
 }, async ({ url, check_id }) => {
     try {
@@ -110,13 +112,14 @@ server.registerTool("check_signal", {
 });
 server.registerTool("list_checks", {
     title: "List all agent-readiness checks",
-    description: "List the full catalog of checks the scanner runs: id, name, category (Cloudflare isitagentready-style), description, and spec link.",
+    description: "List the full catalog of supported ASO checks with id, name, category, description, and spec link. Use this before check_signal to discover valid check ids, to build UI filters, or to explain the scanner coverage; it does not scan a site or produce a score.",
     inputSchema: {},
 }, async () => json({ totalChecks: CHECK_DEFS.length, checks: CHECK_DEFS }));
 server.registerTool("get_fix_plan", {
     title: "Get a prioritized ASO fix plan",
     description: "Scan a site and return a prioritized remediation plan: which signals to add first, the ASO Score points each fix is worth, " +
-        "and ready-to-paste artifact templates (robots.txt AI rules, llms.txt, agent.json, A2A agent-card.json, MCP server card, x402 manifest, pricing.json, security.txt, status endpoint).",
+        "and ready-to-paste artifact templates (robots.txt AI rules, llms.txt, agent.json, A2A agent-card.json, MCP server card, x402 manifest, pricing.json, security.txt, status endpoint). " +
+        "Use this when the user wants an implementation roadmap or copy-paste fixes; use scan_site when they need full evidence and per-check scoring, and use check_signal to verify one completed fix.",
     inputSchema: {
         url: urlSchema.describe("Website URL or domain to plan fixes for"),
     },
@@ -133,7 +136,7 @@ server.registerTool("get_aso_framework", {
     title: "ASO framework reference",
     description: "Return the ASO (Agent Signal Optimization) framework reference: the six signal pillars with point weights, " +
         "the Agent Readiness Index maturity levels (ASO-0 through ASO-5), certification thresholds, and the scoring rubric. " +
-        "Source: https://agentsignaloptimization.com",
+        "Use this for education, documentation, or explaining how scores are calculated; it does not fetch or scan a website. Source: https://agentsignaloptimization.com",
     inputSchema: {},
 }, async () => json({
     framework: "Agent Signal Optimization (ASO)",

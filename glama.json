@@ -3,7 +3,7 @@
   "maintainers": ["clawdbotworker"],
   "name": "@forgemeshlabs/aso-score-mcp",
   "description": "Free Agent Signal Optimization scanner MCP server. Audits websites for agent discoverability, trust, interoperability, commerce, Google generative AI search, browser-agent UX, and machine-readable readiness signals.",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "license": "MIT",
   "repository": "https://github.com/forgemeshlabs/aso-score-mcp",
   "homepage": "https://github.com/forgemeshlabs/aso-score-mcp#readme",
@@ -20,23 +20,23 @@
   "tools": [
     {
       "name": "scan_site",
-      "description": "Scan a website and return an ASO Score Report with ASO score, maturity level, pillar scores, evidence, and recommendations."
+      "description": "Scan a website and return a full ASO Score Report with ASO score, maturity level, pillar scores, evidence, and recommendations. Use for full audits; use check_signal for one named signal or get_fix_plan for remediation-only output."
     },
     {
       "name": "get_fix_plan",
-      "description": "Generate a prioritized remediation plan with ready-to-paste templates for missing agent-readiness signals."
+      "description": "Generate a prioritized remediation plan with ready-to-paste templates for missing agent-readiness signals. Use when the user wants implementation steps; use scan_site for full scoring evidence."
     },
     {
       "name": "check_signal",
-      "description": "Run one specific agent-readiness check, such as llms-txt, a2a-agent-card, mcp-server-card, or x402."
+      "description": "Run one specific agent-readiness check, such as llms-txt, a2a-agent-card, mcp-server-card, or x402. Use after list_checks or after fixing one signal; use scan_site for the complete audit."
     },
     {
       "name": "list_checks",
-      "description": "List every supported ASO scanner check with category, description, and spec link."
+      "description": "List every supported ASO scanner check with id, category, description, and spec link. Use before check_signal or to explain scanner coverage; it does not scan a site."
     },
     {
       "name": "get_aso_framework",
-      "description": "Return the Agent Signal Optimization framework reference, scoring pillars, maturity levels, and certification thresholds."
+      "description": "Return the Agent Signal Optimization framework reference, scoring pillars, maturity levels, and certification thresholds. Use for education or score explanation; it does not scan a site."
     }
   ],
   "keywords": [
