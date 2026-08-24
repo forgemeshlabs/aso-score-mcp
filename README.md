@@ -1,5 +1,7 @@
 # aso-score-mcp — the free ASO Score Scanner
 
+[![M8ven Verified](https://m8ven.ai/badge/mcp/forgemeshlabs-aso-score-mcp-151fg5?variant=verified)](https://m8ven.ai/mcp/forgemeshlabs-aso-score-mcp-151fg5)
+
 [![aso-score-mcp MCP server](https://glama.ai/mcp/servers/forgemeshlabs/aso-score-mcp/badges/score.svg)](https://glama.ai/mcp/servers/forgemeshlabs/aso-score-mcp)
 [![aso-score-mcp MCP server](https://glama.ai/mcp/servers/forgemeshlabs/aso-score-mcp/badges/card.svg)](https://glama.ai/mcp/servers/forgemeshlabs/aso-score-mcp)
 
