@@ -77,6 +77,12 @@ server.registerTool("scan_site", {
             .optional()
             .describe("Optional raw artifact return. Default false. When true, includes remote manifests such as agent.json and A2A cards as untrusted attacker-controlled data for debugging only."),
     },
+    annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+        idempotentHint: false,
+        openWorldHint: true,
+    },
 }, async ({ url, categories, include_artifacts }) => {
     try {
         const report = await scan(url, categories);
@@ -101,6 +107,12 @@ server.registerTool("check_signal", {
             .regex(/^[a-z0-9-]+$/, "check_id must be a lowercase slug like 'a2a-agent-card'")
             .describe("Lowercase check slug from list_checks, e.g. 'a2a-agent-card', 'llms-txt', 'mcp-server-card', or 'x402'."),
     },
+    annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+        idempotentHint: false,
+        openWorldHint: true,
+    },
 }, async ({ url, check_id }) => {
     try {
         const { data, ...rest } = await scanSingle(url, check_id);
@@ -114,6 +126,12 @@ server.registerTool("list_checks", {
     title: "List all agent-readiness checks",
     description: "List the full catalog of supported ASO checks with id, name, category, description, and spec link. Use this before check_signal to discover valid check ids, to build UI filters, or to explain the scanner coverage; it does not scan a site or produce a score.",
     inputSchema: {},
+    annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+        idempotentHint: true,
+        openWorldHint: false,
+    },
 }, async () => json({ totalChecks: CHECK_DEFS.length, checks: CHECK_DEFS }));
 server.registerTool("get_fix_plan", {
     title: "Get a prioritized ASO fix plan",
@@ -122,6 +140,12 @@ server.registerTool("get_fix_plan", {
         "Use this when the user wants an implementation roadmap or copy-paste fixes; use scan_site when they need full evidence and per-check scoring, and use check_signal to verify one completed fix.",
     inputSchema: {
         url: urlSchema.describe("Website URL or domain to plan fixes for"),
+    },
+    annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+        idempotentHint: false,
+        openWorldHint: true,
     },
 }, async ({ url }) => {
     try {
@@ -138,6 +162,12 @@ server.registerTool("get_aso_framework", {
         "the Agent Readiness Index maturity levels (ASO-0 through ASO-5), certification thresholds, and the scoring rubric. " +
         "Use this for education, documentation, or explaining how scores are calculated; it does not fetch or scan a website. Source: https://agentsignaloptimization.com",
     inputSchema: {},
+    annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+        idempotentHint: true,
+        openWorldHint: false,
+    },
 }, async () => json({
     framework: "Agent Signal Optimization (ASO)",
     definition: "ASO is the practice of optimizing for agent discovery, trust, invocation, commerce, and memory, so AI shoppers, browser agents, research assistants, and buying bots know what to find, cite, recommend, invoke, pay for, and return to. SEO ranks pages for people; ASO prepares services for agent selection.",
