@@ -311,10 +311,49 @@ const webmcp: Checker = async (ctx) => {
   return result(D["webmcp"], "fail", "No WebMCP signals", "Optional: expose in-page tools via WebMCP (navigator.modelContext) for browser agents.");
 };
 
+/** Collect every description string in an x402 manifest (resources[] / accepts[] / items). */
+function x402Descriptions(manifest: unknown): string[] {
+  const out: string[] = [];
+  const walk = (node: unknown): void => {
+    if (Array.isArray(node)) { node.forEach(walk); return; }
+    if (!node || typeof node !== "object") return;
+    const o = node as Record<string, unknown>;
+    if (typeof o.description === "string") out.push(o.description);
+    for (const key of ["resources", "accepts", "items", "resource"]) walk(o[key]);
+  };
+  walk(manifest);
+  return out;
+}
+
 const x402: Checker = async (ctx) => {
-  const hit = await ctx.firstHit(["/.well-known/x402", "/.well-known/x402.json"]);
-  if (hit && tryJson(hit.res.body)) return result(D["x402"], "pass", `x402 manifest at ${hit.path}`, undefined, tryJson(hit.res.body));
-  return result(D["x402"], "fail", "No x402 payment manifest", "If agents can pay you per-request, publish an x402 manifest (/.well-known/x402) describing payable routes and pricing.");
+  const extRes = await ctx.get("/.well-known/x402");
+  const extManifest = extRes.status === 200 ? tryJson(extRes.body) : null;
+  const jsonRes = extManifest ? null : await ctx.get("/.well-known/x402.json");
+  const jsonManifest = jsonRes && jsonRes.status === 200 ? tryJson(jsonRes.body) : null;
+  const manifest = extManifest ?? jsonManifest;
+  if (!manifest) {
+    return result(D["x402"], "fail", "No x402 payment manifest", "If agents can pay you per-request, publish an x402 manifest (/.well-known/x402) describing payable routes and pricing.");
+  }
+  // Field finding (Aug 2026): the Bazaar indexer silently drops any listing whose
+  // description exceeds exactly 500 characters — no error, the resource just
+  // becomes unpurchasable. Measured at the boundary; upstream fix unmerged.
+  const overLimit = x402Descriptions(manifest).filter((d) => d.length > 500).length;
+  const descNote = overLimit > 0
+    ? ` WARNING: ${overLimit} description(s) exceed 500 characters — Bazaar-indexed listings past 500 chars become silently unpurchasable; trim them.`
+    : "";
+  if (extManifest) {
+    return result(D["x402"], "pass", `x402 manifest at /.well-known/x402 (extensionless).${descNote}`, overLimit > 0 ? "Trim every manifest description to ≤500 characters." : undefined, extManifest);
+  }
+  // Only the .json variant is served: most ecosystem crawlers request the
+  // extensionless path first (observed ~11:1 in the x402 DNS-discovery spec
+  // survey), and at least one major indexer aborts mid-crawl on an HTML 404 there.
+  return result(
+    D["x402"],
+    "partial",
+    `x402 manifest only at /.well-known/x402.json — the extensionless /.well-known/x402 is missing.${descNote}`,
+    "Serve the manifest at the extensionless /.well-known/x402 as well (crawlers request it first; an HTML 404 there kills some crawls)." + (overLimit > 0 ? " Also trim every description to ≤500 characters." : ""),
+    jsonManifest,
+  );
 };
 
 const mpp: Checker = async (ctx) => {

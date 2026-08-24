@@ -1,10 +1,10 @@
 {
   "name": "@forgemeshlabs/aso-score-mcp",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "publishConfig": {
     "access": "public"
   },
-  "description": "ASO Score MCP — the free ASO Score scanner as an MCP server. Measures your ASO Score (Agent Signal Optimization) across discovery, identity, trust, commerce, reputation, memory, Google generative AI search, and browser-agent UX signals.",
+  "description": "ASO Score MCP \u2014 the free ASO Score scanner as an MCP server. Measures your ASO Score (Agent Signal Optimization) across discovery, identity, trust, commerce, reputation, memory, Google generative AI search, and browser-agent UX signals.",
   "type": "module",
   "repository": {
     "type": "git",
