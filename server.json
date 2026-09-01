@@ -1,0 +1,20 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.forgemeshlabs/aso-score-mcp",
+  "description": "ASO Score MCP \u2014 the free ASO Score scanner as an MCP server. Measures your ASO Score (Agent.",
+  "repository": {
+    "url": "https://github.com/forgemeshlabs/aso-score-mcp",
+    "source": "github"
+  },
+  "version": "0.2.3",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "@forgemeshlabs/aso-score-mcp",
+      "version": "0.2.3",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}

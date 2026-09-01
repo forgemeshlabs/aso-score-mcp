@@ -1,6 +1,6 @@
 {
   "name": "@forgemeshlabs/aso-score-mcp",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "publishConfig": {
     "access": "public"
   },
@@ -55,5 +55,6 @@
   },
   "engines": {
     "node": ">=20"
-  }
+  },
+  "mcpName": "io.github.forgemeshlabs/aso-score-mcp"
 }
