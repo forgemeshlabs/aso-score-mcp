@@ -409,7 +409,7 @@ const jsonLd: Checker = async (ctx) => {
 
 const agentFriendlyUx: Checker = async (ctx) => {
   const home = await ctx.home();
-  if (home.status !== 200 || looksHtml(home) === false && home.body.trim().length === 0) {
+  if (home.status !== 200 || (!looksHtml(home) && home.body.trim().length === 0)) {
     return result(D["agent-friendly-ux"], "fail", `Homepage unavailable for UX scan: ${describe(home)}`, "Ensure the primary page is crawlable and renders meaningful HTML for browser agents.");
   }
 

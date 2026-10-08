@@ -3,6 +3,14 @@ import { isIP } from "node:net";
 export const MAX_URL_LENGTH = 2048;
 export const MAX_HOST_LENGTH = 253;
 export const MAX_REDIRECTS = 5;
+let loopbackAllowedForTests = false;
+/**
+ * TEST HARNESS ONLY. Lets the unit tests run a fixture server on 127.0.0.1. Nothing in the server
+ * entry point calls this and it cannot be reached through tool arguments or environment variables.
+ */
+export function allowLoopbackForTests(allow) {
+    loopbackAllowedForTests = allow;
+}
 export class UnsafeUrlError extends Error {
     constructor(message) {
         super(message);
@@ -115,11 +123,8 @@ export async function assertResolvableAndPublic(u) {
     const host = unbracket(u.hostname);
     const literal = isIP(host);
     if (literal) {
-        // ASO_SCANNER_TEST_ALLOW_LOOPBACK exists solely so the test suite can run
-        // a fixture server on 127.0.0.1. It exempts exactly that one address and
-        // nothing else (not the rest of 127/8, not ::1, not other private ranges).
-        // Never set it in production.
-        const testLoopback = host === "127.0.0.1" && process.env.ASO_SCANNER_TEST_ALLOW_LOOPBACK === "1";
+        // Test-only exemption for exactly 127.0.0.1 (see allowLoopbackForTests); off by default.
+        const testLoopback = host === "127.0.0.1" && loopbackAllowedForTests;
         if (isBlockedIp(host) && !testLoopback) {
             throw new UnsafeUrlError(`Refusing to fetch private/reserved address: ${host}`);
         }

@@ -2,7 +2,7 @@
  * Redirect-handling security tests for httpGet — run with: npm test
  *
  * Spins up a local fixture server on 127.0.0.1, which the SSRF guard would
- * normally refuse; ASO_SCANNER_TEST_ALLOW_LOOPBACK=1 exempts exactly that
+ * normally refuse; allowLoopbackForTests(true) exempts exactly that
  * address for the duration of these tests (see safeurl.ts).
  */
 import { test } from "node:test";
@@ -10,9 +10,9 @@ import assert from "node:assert/strict";
 import { createServer, type Server } from "node:http";
 import type { AddressInfo } from "node:net";
 import { httpGet } from "./http.js";
-import { MAX_REDIRECTS } from "./safeurl.js";
+import { MAX_REDIRECTS, allowLoopbackForTests } from "./safeurl.js";
 
-process.env.ASO_SCANNER_TEST_ALLOW_LOOPBACK = "1";
+allowLoopbackForTests(true);
 
 function startFixture(): Promise<{ server: Server; base: string }> {
   const server = createServer((req, res) => {
@@ -105,13 +105,13 @@ test("httpGet redirect handling", async (t) => {
   });
 
   await t.test("loopback stays blocked without the test escape hatch", async () => {
-    delete process.env.ASO_SCANNER_TEST_ALLOW_LOOPBACK;
+    allowLoopbackForTests(false);
     try {
       const r = await httpGet(`${base}/ok`);
       assert.equal(r.ok, false);
       assert.equal(r.blocked, true);
     } finally {
-      process.env.ASO_SCANNER_TEST_ALLOW_LOOPBACK = "1";
+      allowLoopbackForTests(true);
     }
   });
 });
