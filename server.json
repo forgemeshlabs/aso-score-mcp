@@ -6,12 +6,12 @@
     "url": "https://github.com/forgemeshlabs/aso-score-mcp",
     "source": "github"
   },
-  "version": "0.2.5",
+  "version": "0.2.6",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "@forgemeshlabs/aso-score-mcp",
-      "version": "0.2.5",
+      "version": "0.2.6",
       "transport": {
         "type": "stdio"
       }

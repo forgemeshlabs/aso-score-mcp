@@ -133,7 +133,7 @@ Release verification:
 
 - Git tag: `v0.2.5`
 - npm package: `@forgemeshlabs/aso-score-mcp`
-- MCP server version: `0.2.5` (read from `package.json` at startup)
+- MCP server version: `0.2.6` (read from `package.json` at startup)
 
 ### Glama release build
 
